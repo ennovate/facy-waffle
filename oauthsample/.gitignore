@@ -1,0 +1,14 @@
+.idea
+*.iml
+.gradle
+.sass-cache/
+*.log
+.DS_Store
+build/
+classes/
+out/
+node_modules/
+bower_components/
+*.iws
+*.ipr
+*.ids
