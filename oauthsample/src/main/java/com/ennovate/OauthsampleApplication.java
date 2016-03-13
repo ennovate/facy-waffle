@@ -9,20 +9,13 @@ import java.security.Principal;
 
 @SpringBootApplication
 @RestController
-public class OAuthSampleApplication{
+public class OAuthSampleApplication {
 
 
     @RequestMapping("/user")
     public Principal user(Principal principal) {
         return principal;
     }
-
-    @RequestMapping("/dealer-search")
-    public String dealerSearch(Principal principal) {
-        return "Protected Dealer Search resource";
-    }
-
-
 
     public static void main(String[] args) {
         SpringApplication.run(OAuthSampleApplication.class, args);
