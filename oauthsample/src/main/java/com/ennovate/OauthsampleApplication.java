@@ -2,11 +2,29 @@ package com.ennovate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
 
 @SpringBootApplication
-public class OauthsampleApplication {
+@RestController
+public class OAuthSampleApplication{
 
-	public static void main(String[] args) {
-		SpringApplication.run(OauthsampleApplication.class, args);
-	}
+
+    @RequestMapping("/user")
+    public Principal user(Principal principal) {
+        return principal;
+    }
+
+    @RequestMapping("/dealer-search")
+    public String dealerSearch(Principal principal) {
+        return "Protected Dealer Search resource";
+    }
+
+
+
+    public static void main(String[] args) {
+        SpringApplication.run(OAuthSampleApplication.class, args);
+    }
 }

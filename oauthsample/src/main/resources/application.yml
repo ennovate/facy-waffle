@@ -1,0 +1,9 @@
+facebook:
+    app:
+        secret: 33b17e044ee6a4fa383f46ec6e28ea1d
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+
