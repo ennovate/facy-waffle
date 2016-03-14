@@ -30,6 +30,4 @@ public class FacebookTokenAuthenticationManager implements AuthenticationManager
         }
         return null;
     }
-
-
 }
