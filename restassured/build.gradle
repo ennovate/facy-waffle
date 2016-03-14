@@ -17,7 +17,7 @@ apply plugin: 'eclipse'
 apply plugin: 'spring-boot' 
 
 jar {
-	baseName = 'oauthsample'
+	baseName = 'restsecured'
 	version = '0.0.1-SNAPSHOT'
 }
 sourceCompatibility = 1.8
@@ -41,7 +41,9 @@ dependencies {
 	compile('org.webjars:bootstrap:3.2.0')
 	compile('org.webjars:webjars-locator')
 
-	testCompile('org.springframework.boot:spring-boot-starter-test') 
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile ('com.jayway.jsonpath:json-path:2.2.0')
+
 }
 
 
