@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.security.Principal;
 import java.util.Collections;
 
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -36,8 +37,13 @@ public class ResourceControllerTest {
 
         mockMvc.perform(get("/user").principal(stephanie))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.details", is(nullValue())))
+                .andExpect(jsonPath("$.authorities.[0].authority", is("ROLE_USER")))
+                .andExpect(jsonPath("$.authenticated", is(true)))
+                .andExpect(jsonPath("$.principal", is("Stephanie")))
+                .andExpect(jsonPath("$.credentials", is(nullValue())))
                 .andExpect(jsonPath("$.name", is("Stephanie")))
-                .andExpect(jsonPath("$.authorities.[0].authority", is("ROLE_USER")));
+        ;
 
     }
 
