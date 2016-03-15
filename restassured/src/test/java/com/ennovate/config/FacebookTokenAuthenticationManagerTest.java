@@ -22,7 +22,6 @@ public class FacebookTokenAuthenticationManagerTest {
     FacebookTokenAuthenticationManager facebookTokenAuthenticationManager;
     private FacebookSignedRequestVerifier facebookSignedRequestVerifier;
 
-
     @Before
     public void setUp() throws Exception {
         facebookSignedRequestVerifier = mock(FacebookSignedRequestVerifier.class);

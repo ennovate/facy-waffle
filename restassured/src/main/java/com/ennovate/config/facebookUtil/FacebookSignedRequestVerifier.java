@@ -20,6 +20,7 @@ public class FacebookSignedRequestVerifier {
 
     private String faceBookAppSecret;
     private TimeSource timeSource;
+    private String userId;
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -42,12 +43,13 @@ public class FacebookSignedRequestVerifier {
         SignedRequest request;
         try {
             request = objectMapper.readValue(Base64Utils.decodeFromString(encodedExpirationData), SignedRequest.class);
+            userId = request.getUser_id();
         } catch (IOException e) {
-            System.out.println("could not read signedRequest data part; " + e.getMessage());
+            log.error("could not read signedRequest data part; ", e);
             return true;
         }
 
-        if (request == null || request.getIssuedAt() == 0) {
+        if (request.getIssuedAt() == 0) {
             log.info("signedRequest is missing issued_at attribute");
             return true;
         }
@@ -55,7 +57,7 @@ public class FacebookSignedRequestVerifier {
         Instant oneHourBefore = timeSource.nowWithUTC().toInstant().minus(1, ChronoUnit.HOURS);
 
         if (!Instant.ofEpochSecond(request.getIssuedAt()).isAfter(oneHourBefore)) {
-            log.info("token is older than one hour; "+ request);
+            log.info("token is older than one hour; " + request);
             return true;
         }
         return false;
@@ -73,10 +75,14 @@ public class FacebookSignedRequestVerifier {
         }
 
         if (!Arrays.equals(hMac, signatureBytes)) {
-            log.info("signature did not match; expected:"+new String(Hex.encode(hMac))+
-                    " got: "+ new String(Hex.encode(signatureBytes)));
+            log.info("signature did not match; expected:" + new String(Hex.encode(hMac)) +
+                    " got: " + new String(Hex.encode(signatureBytes)));
             return false;
         }
         return true;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 }

@@ -20,6 +20,7 @@ public class FacebookSignedRequestVerifierTest {
 
     FacebookSignedRequestVerifier facebookSignedRequestVerifier;
     private static final String FB_SIGNED_REQUEST = "LR7y4KScaKNi9OALNhUcrxrP9ke6bQmeOcY-O4Oq_do.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImNvZGUiOiJBUUFjQzNQMmQ5VWhpWEtEWjhUc2VyNHJpb3lsNkkwcnRtUmRJN0t2ZDYzM1ItcGpSaFZILUxlLXJjZ0ljOGRfVHhsQ0Q4aDhMZDk0OU42XzBqRkFMRFBVNUFoeFp1QkUzT04wQlBBNUJHaHdkb04xM2tyN3EtWVJjNkN3YnJpRG8za2JwM1lzaElpTzl3Z1BTY0l2S2tpazVpRGpDRTBGbGdmWHA0TFJQdFNyOThZM3FwamlUczJlZ3V6U1lKNmtBNEdIOGFoRnNhZXJNWlhET25HaDdhcVBuTkY0bjY2RG5EU3VDNW93RVNjdGhfRHlsY3VaV3hDZ25rbEs0LThaNHh1a3dYYmptdzBadkdwNG96eFowclpvbmVNVTk1ZVdOZUs3cE9nYnFhdDdjQ3hsYVZOMW54a2JrZElDbGtIQVBfcks5amdjOEZqYWRiNkwwWm5TOVk5MSIsImlzc3VlZF9hdCI6MTQ1Nzg3NzI0MywidXNlcl9pZCI6IjE2ODUyMDg1OTg0MzM3OTAifQ";
+    private static final String USER_ID = "1685208598433790";
     private TimeSource timeSource;
 
     @Before
@@ -36,6 +37,7 @@ public class FacebookSignedRequestVerifierTest {
         when(timeSource.nowWithUTC()).thenReturn(january2016);
         boolean isValidSignature = facebookSignedRequestVerifier.verify(FB_SIGNED_REQUEST);
         assertThat(isValidSignature, is(true));
+        assertThat(facebookSignedRequestVerifier.getUserId(), is(USER_ID));
     }
 
 

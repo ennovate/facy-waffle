@@ -8,8 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
-import java.util.Arrays;
-import java.util.UUID;
+import java.util.Collections;
 
 
 public class FacebookTokenAuthenticationManager implements AuthenticationManager {
@@ -26,7 +25,7 @@ public class FacebookTokenAuthenticationManager implements AuthenticationManager
         String accessToken = authentication.getPrincipal().toString();
         if (facebookSignedRequestVerifier.verify(accessToken)) {
             GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_USER");
-            return new PreAuthenticatedAuthenticationToken(UUID.randomUUID().toString(), "", Arrays.asList(grantedAuthority));
+            return new PreAuthenticatedAuthenticationToken(facebookSignedRequestVerifier.getUserId(), "", Collections.singletonList(grantedAuthority));
         }
         return null;
     }

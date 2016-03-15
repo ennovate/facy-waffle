@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class SignedRequest {
 
     private long issuedAt;
+    private String user_id;
 
     public SignedRequest() {
     }
@@ -25,5 +26,13 @@ public class SignedRequest {
         return "SignedRequest{" +
                 "issuedAt=" + issuedAt +
                 '}';
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 }
