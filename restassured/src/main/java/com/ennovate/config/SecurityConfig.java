@@ -19,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     TimeSource timeSource;
 
     @Value("${facebook.app.secret:}")
-    private String faceBookAppSecret;
+    private String facebookAppSecret;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -31,16 +31,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .csrf().disable();
     }
 
+    @Bean
     public Filter oAuthAuthenticationProcessingFilter() throws  Exception{
 
         final OAuthAuthenticationProcessingFilter oAuthAuthenticationProcessingFilter = new OAuthAuthenticationProcessingFilter();
-        oAuthAuthenticationProcessingFilter.setAuthenticationManager(new FacebookTokenAuthenticationManager(faceBookSignedRequestVerifier()));
+        oAuthAuthenticationProcessingFilter.setAuthenticationManager(new FacebookTokenAuthenticationManager(facebookSignedRequestVerifier()));
         return oAuthAuthenticationProcessingFilter;
     }
 
     @Bean
-    public FacebookSignedRequestVerifier faceBookSignedRequestVerifier() throws Exception{
-        return new FacebookSignedRequestVerifier(faceBookAppSecret, timeSource);
-
+    public FacebookSignedRequestVerifier facebookSignedRequestVerifier() {
+        return new FacebookSignedRequestVerifier(facebookAppSecret, timeSource);
     }
 }

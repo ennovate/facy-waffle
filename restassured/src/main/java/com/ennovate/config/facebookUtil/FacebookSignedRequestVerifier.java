@@ -14,6 +14,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
+
 public class FacebookSignedRequestVerifier {
 
     private final static Log log = LogFactory.getLog(FacebookSignedRequestVerifier.class);
@@ -24,20 +25,17 @@ public class FacebookSignedRequestVerifier {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
+
     public FacebookSignedRequestVerifier(String faceBookAppSecret, TimeSource timeSource) {
         this.faceBookAppSecret = faceBookAppSecret;
         this.timeSource = timeSource;
-
     }
 
     public boolean verify(String fbSignedRequest) {
-
         final String[] signedRequestSegments = fbSignedRequest.split(Pattern.quote("."), 2);
         return isValidSignature(signedRequestSegments[1], signedRequestSegments[0], faceBookAppSecret)
                 && !isExpiredSignature(signedRequestSegments[1]);
-
     }
-
     private boolean isExpiredSignature(String encodedExpirationData) {
 
         SignedRequest request;

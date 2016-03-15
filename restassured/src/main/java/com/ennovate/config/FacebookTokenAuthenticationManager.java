@@ -13,7 +13,6 @@ import java.util.Collections;
 
 public class FacebookTokenAuthenticationManager implements AuthenticationManager {
 
-
     private FacebookSignedRequestVerifier facebookSignedRequestVerifier;
 
     public FacebookTokenAuthenticationManager(FacebookSignedRequestVerifier facebookSignedRequestVerifier) {

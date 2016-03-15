@@ -17,9 +17,8 @@ import java.util.Enumeration;
 
 
 public class OAuthAuthenticationProcessingFilter implements Filter, InitializingBean {
-
-
     private final static Log logger = LogFactory.getLog(OAuthAuthenticationProcessingFilter.class);
+
     public static final String BEARER_TOKEN_TYPE = "bearer";
 
     private AuthenticationManager authenticationManager;
@@ -76,6 +75,4 @@ public class OAuthAuthenticationProcessingFilter implements Filter, Initializing
 
         return null;
     }
-
-
 }
