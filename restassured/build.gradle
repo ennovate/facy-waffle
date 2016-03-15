@@ -32,7 +32,6 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.security.oauth:spring-security-oauth2')
 
 	//UI dependencies
 	compile('org.webjars:angularjs:1.4.3')

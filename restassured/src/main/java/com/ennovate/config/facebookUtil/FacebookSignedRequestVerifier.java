@@ -3,13 +3,12 @@ package com.ennovate.config.facebookUtil;
 
 import com.ennovate.util.TimeSource;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.crypto.codec.Hex;
+import org.springframework.util.Base64Utils;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
@@ -21,9 +20,6 @@ public class FacebookSignedRequestVerifier {
 
     private String faceBookAppSecret;
     private TimeSource timeSource;
-
-
-    private Base64 base64 = new Base64();
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -41,12 +37,11 @@ public class FacebookSignedRequestVerifier {
 
     }
 
-
     private boolean isExpiredSignature(String encodedExpirationData) {
 
         SignedRequest request;
         try {
-            request = objectMapper.readValue(Base64.decodeBase64(encodedExpirationData), SignedRequest.class);
+            request = objectMapper.readValue(Base64Utils.decodeFromString(encodedExpirationData), SignedRequest.class);
         } catch (IOException e) {
             System.out.println("could not read signedRequest data part; " + e.getMessage());
             return true;
@@ -67,12 +62,8 @@ public class FacebookSignedRequestVerifier {
     }
 
     private boolean isValidSignature(String source, String encodedSignature, String secretKey) {
-        byte[] signatureBytes;
-        try {
-            signatureBytes = base64.decode(encodedSignature.getBytes("UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            return false;
-        }
+        byte[] signatureBytes = Base64Utils.decodeFromUrlSafeString(encodedSignature);
+
         byte[] hMac;
         try {
             hMac = CryptoUtils.createHmac(source, secretKey);
